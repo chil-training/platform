@@ -1,0 +1,64 @@
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase_config";
+import { Link } from "react-router";
+
+const LoginBox = () => {
+
+    const [error, setError] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const userref = userCredential.user;
+
+                //Redirect to home page 
+                window.location.href = "/";
+            }).catch((error) => {
+                setError(error.message);
+            });
+    }
+
+    return (
+        <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+            <h1 className="font-extrabold text-2xl text-center mb-6">
+                Login to HDS Training Platform
+            </h1>
+            {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-center">{error}</div>}
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                    autoComplete="email"
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                    autoComplete="current-password"
+                    required
+                />
+                <button
+                    type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg transition"
+                >
+                    Login
+                </button>
+            </form>
+            <div className="mt-4 text-center text-sm text-gray-500">
+                Don&apos;t have an account? <Link to="/auth/register" className="text-blue-600 hover:underline">Sign up</Link>
+            </div>
+            <div className="mt-4 text-center text-sm text-gray-500">
+                Forgot your password? <Link to="/auth/forgot-password" className="text-blue-600 hover:underline">Click here</Link>
+            </div>
+        </div>
+    )
+}
+
+export default LoginBox
