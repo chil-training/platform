@@ -1,7 +1,11 @@
 import { db } from "../firebase_config";
 import { setDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router";
+
 
 const FirstTimeSetup = ({ uid }) => {
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -9,21 +13,19 @@ const FirstTimeSetup = ({ uid }) => {
         const interests = e.target.interests.value;
         const organisation = e.target.organisation.value;
 
-        try {
-            // Update the user document in Firestore with the additional info
-            await setDoc(doc(db, "users", uid), {
-                course_code,
-                interests,
-                organisation,
-                first_time: false,
-                admin: false,
-            }, { merge: true });
-
-            // Redirect to home page
-            window.location.href = "/";
-        } catch (error) {
-            console.error("Error updating user document:", error);
-        }
+        // Update the user document in Firestore with the additional info
+        await setDoc(doc(db, "users", uid), {
+            course_code,
+            interests,
+            organisation,
+            first_time: false,
+            admin: false,
+        }, { merge: true }).then(() => {
+            console.log("Document successfully updated!");
+            navigate(0);
+        }).catch((error) => {
+            console.error("Error updating document: ", error);
+        });
     };
 
     return (

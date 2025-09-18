@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../App";
 import { auth } from "../firebase_config";
-import { Link } from "react-router";
+import { Link, redirect } from "react-router";
 
 
 const Navbar = () => {
@@ -9,10 +9,9 @@ const Navbar = () => {
     const { user } = useContext(AuthContext);
 
     const handleLogOut = () => {
-        auth.signOut();
-
-        // Redirect to home page
-        window.location.href = "/";
+        auth.signOut().then(() => {
+            redirect("/");
+        });
     }
 
     return (

@@ -2,10 +2,11 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase_config";
 import { setDoc, doc } from "firebase/firestore";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function RegisterBox() {
 
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -21,10 +22,9 @@ export default function RegisterBox() {
             // Add the user to Firestore with metadata
             const userRef = await setDoc(doc(db, "users", user.uid), {
                 first_time: true,
-            });
-
-            // Redirect to home page
-            window.location.href = "/";
+            }).then(() => {
+                navigate("/");
+            })
         } catch (error) {
             setError(error.message);
         }
@@ -57,7 +57,7 @@ export default function RegisterBox() {
                     type="submit"
                     className="bg-blue-600 hover:bg-blue-700 text-white font-semibold p-3 rounded-lg transition"
                 >
-                    Login
+                    Register
                 </button>
             </form>
             <div className="mt-4 text-center text-sm text-gray-500">

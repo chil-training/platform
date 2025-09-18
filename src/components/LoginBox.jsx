@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase_config";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const LoginBox = () => {
 
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -14,10 +15,8 @@ const LoginBox = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const userref = userCredential.user;
-
-                //Redirect to home page 
-                window.location.href = "/";
+                console.log("User logged in:", userCredential.user);
+                navigate("/")
             }).catch((error) => {
                 setError(error.message);
             });

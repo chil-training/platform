@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../App";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebase_config";
+import { Link } from "react-router";
 import Markdown from "react-markdown";
 
 const Guide = () => {
@@ -38,9 +39,14 @@ const Guide = () => {
                 <div className="mx-auto text-left prose py-32">
                     <Markdown>{guideData.markdown_content}</Markdown>
                 </div>
-                : <p>Please log in to view this content.</p>}
+                :
+                <div className="py-32 container mx-auto">
+                    <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
+                </div>
+
+            }
         </div>
-    );
+    )
 }
 
 

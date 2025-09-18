@@ -51,9 +51,14 @@ const Theme = () => {
 
 
     if (!user) {
-        return (<p>Please <Link href="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>)
+        return (
+            <div classname="py-32 container mx-auto">
+                <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
+            </div>
+        )
     } else if (!themeData) {
-        return (<p>Loading...</p>)
+        // TODO: Loading spinner
+        return (<></>)
     } else {
         return (
             <div className="text-left py-32 container mx-auto">
