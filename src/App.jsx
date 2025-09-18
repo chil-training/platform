@@ -10,6 +10,7 @@ import Theme from './routes/Theme';
 import Guide from './routes/Guide';
 import Login from './routes/Login';
 import Register from './routes/Register';
+import MainLayout from './layouts/MainLayout'
 
 
 
@@ -39,9 +40,11 @@ function App() {
   return (
     <AuthContext.Provider value={{ user, setUser, userMeta, setUserMeta }}>
       <Routes>
-        <Route index element={<Dashboard />} />
-        <Route path='theme/:themeId' element={<Theme />} />
-        <Route path='guide/:guideId' element={<Guide />} />
+        <Route path='/' element={<MainLayout />} >
+          <Route index element={<Dashboard />} />
+          <Route path='theme/:themeId' element={<Theme />} />
+          <Route path='guide/:guideId' element={<Guide />} />
+        </Route>
 
         {/* Auth routes */}
         <Route path="auth" element={<AuthLayout />}>

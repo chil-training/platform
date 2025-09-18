@@ -11,11 +11,8 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Navbar />
-            <> {user ? <TrainingApp /> : <HomeHero />}
-            </>
+            {user ? <TrainingApp /> : <HomeHero />}
         </div>
-
     )
 
 }

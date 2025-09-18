@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../App";
+import { db } from "../firebase_config";
+import { getDoc, getDocs, doc, collection } from "firebase/firestore";
 import { Link } from "react-router";
+import Card from "../components/Card";
 
 
 const Theme = () => {
@@ -53,7 +56,7 @@ const Theme = () => {
         return (<p>Loading...</p>)
     } else {
         return (
-            <div className="text-left">
+            <div className="text-left py-32 container mx-auto">
                 <h1 className="text-6xl font-bold">{themeData.title ? themeData.title : null}</h1>
                 <p className="mt-4 text-md text-gray-600">{themeData.description ? themeData.description : null}</p>
                 <h2 className="text-4xl font-bold my-8">Guides</h2>
@@ -62,7 +65,7 @@ const Theme = () => {
                         <div>
                             <ul className="list-disc list-inside grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {guideData.map((guide, index) => (
-                                    <Link href={`/guide/${course_code}_${theme_id}_${guide.id}`} key={index}>
+                                    <Link to={`/guide/${course_code}_${theme_id}_${guide.id}`} key={index}>
                                         <Card item={guide} />
                                     </Link>
                                 ))}
@@ -73,12 +76,6 @@ const Theme = () => {
             </div>
         );
     }
-
-    return (
-        <div>
-
-        </div>
-    )
 }
 
 export default Theme;
