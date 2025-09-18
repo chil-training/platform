@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Card from "../components/card";
+import Card from "../components/Card";
 import { Link } from "react-router";
 
 const DAALayout = ({ course, themes }) => {
