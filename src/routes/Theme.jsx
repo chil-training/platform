@@ -49,10 +49,20 @@ const Theme = () => {
         }
     }, [userMeta]);
 
+    var description
+
+    if (themeData && themeData.long_description) {
+        description = themeData.long_description;
+    }
+    else if (themeData && themeData.description) {
+        description = themeData.description;
+    } else {
+        description = null;
+    }
 
     if (!user) {
         return (
-            <div classname="py-32 container mx-auto">
+            <div className="py-32 container mx-auto">
                 <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
             </div>
         )
@@ -63,7 +73,7 @@ const Theme = () => {
         return (
             <div className="text-left py-32 container mx-auto">
                 <h1 className="text-6xl font-bold">{themeData.title ? themeData.title : null}</h1>
-                <p className="mt-4 text-md text-gray-600">{themeData.description ? themeData.description : null}</p>
+                <p className="mt-4 text-md text-gray-600">{description}</p>
                 <h2 className="text-4xl font-bold my-8">Guides</h2>
                 {
                     guideData && guideData.length > 0 ? (
