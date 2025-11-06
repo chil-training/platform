@@ -1,5 +1,4 @@
 import HomeHero from "../components/HomeHero";
-import Navbar from "../components/Navbar";
 import TrainingApp from "../components/TrainingApp";
 import { AuthContext } from "../App";
 

@@ -11,14 +11,14 @@ const Guide = () => {
     let params = useParams();
     let guideId = params.guideId;
 
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
     const [guideData, setGuideData] = useState(null);
 
     // Split slug into course_code, theme_id, and lesson_id
     const [course_code, theme_id, guide_id] = guideId.split("_");
 
     const fetchThemeData = async (course_code, theme_id, guide_id) => {
-        const docRef = await doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
+        const docRef = doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -30,17 +30,19 @@ const Guide = () => {
         if (userMeta && userMeta.course_code) {
             fetchThemeData(course_code, theme_id, guide_id);
         }
-    }, [userMeta]);
+    }, [userMeta, course_code, theme_id, guide_id]);
 
 
     return (
         <div>
             {user && guideData ?
-                <div className="mx-auto text-left prose py-32">
-                    <Markdown>{guideData.markdown_content}</Markdown>
+                <div className="container mx-auto py-32">
+                    <div className="mx-0 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
+                        <Markdown>{guideData.markdown_content}</Markdown>
+                    </div>
                 </div>
                 :
-                <div className="py-32 container mx-auto">
+                <div className="py-32 container mx-auto px-4">
                     <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
                 </div>
 

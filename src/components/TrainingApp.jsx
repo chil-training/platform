@@ -10,7 +10,8 @@ const TrainingApp = () => {
 
     const [courseData, setCourseData] = useState(null);
     const [themeData, setThemeData] = useState(null);
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const [eventData, setEventData] = useState(null);
+    const { user, userMeta } = useContext(AuthContext);
 
 
     const fetchCourseData = async (course_code) => {
@@ -30,6 +31,14 @@ const TrainingApp = () => {
                 setThemeData(themes);
             }
 
+            // Step 3: Get events 
+            const eventRef = collection(docRef, "events");
+            const eventSnap = await getDocs(eventRef);
+
+            if (!eventSnap.empty) {
+                const events = eventSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setEventData(events);
+            }
         }
     }
 
@@ -42,7 +51,7 @@ const TrainingApp = () => {
     if (userMeta && !userMeta.first_time && courseData) {
         return (
             <div className="py-32 container mx-auto">
-                <Course course={courseData} themes={themeData} />
+                <Course course={courseData} themes={themeData} events={eventData} />
             </div>
         )
     } else if (userMeta && userMeta.first_time) {

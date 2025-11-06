@@ -15,7 +15,7 @@ const Theme = () => {
     // Split slug into course_code, theme_id, and lesson_id 
     const [course_code, theme_id] = themeId.split("_");
 
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
     const [guideData, setGuideData] = useState(null);
     const [themeData, setThemeData] = useState(null);
 
@@ -47,18 +47,8 @@ const Theme = () => {
         if (userMeta && userMeta.course_code) {
             fetchThemeData(course_code, theme_id);
         }
-    }, [userMeta]);
+    }, [userMeta, course_code, theme_id]);
 
-    var description
-
-    if (themeData && themeData.long_description) {
-        description = themeData.long_description;
-    }
-    else if (themeData && themeData.description) {
-        description = themeData.description;
-    } else {
-        description = null;
-    }
 
     if (!user) {
         return (
@@ -72,8 +62,14 @@ const Theme = () => {
     } else {
         return (
             <div className="text-left py-32 container mx-auto">
-                <h1 className="text-6xl font-bold">{themeData.title ? themeData.title : null}</h1>
-                <p className="mt-4 text-md text-gray-600">{description}</p>
+                <div className="mb-12">
+                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-relaxed mb-4">
+                        {themeData.title}
+                    </h1>
+                    <p className="mt-4 text-lg text-gray-600 leading-relaxed whitespace-pre-line">
+                        {themeData.description}
+                    </p>
+                </div>
                 <h2 className="text-4xl font-bold my-8">Guides</h2>
                 {
                     guideData && guideData.length > 0 ? (

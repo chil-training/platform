@@ -9,12 +9,14 @@ const FirstTimeSetup = ({ uid }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const nickname = e.target.nickname.value;
         const course_code = e.target.course_code.value;
         const interests = e.target.interests.value;
         const organisation = e.target.organisation.value;
 
         // Update the user document in Firestore with the additional info
         await setDoc(doc(db, "users", uid), {
+            nickname,
             course_code,
             interests,
             organisation,
@@ -34,6 +36,15 @@ const FirstTimeSetup = ({ uid }) => {
                 <h1 className="text-2xl font-bold">Welcome to the HDS Training Platform!</h1>
                 <p className="my-4">This is your first time here. Let&apos;s get you set up.</p>
                 <form className="flex flex-col" onSubmit={handleSubmit}>
+                    <label>What would you like us to call you?</label>
+                    <input
+                        name="nickname"
+                        type="text"
+                        placeholder="Nickname"
+                        className="p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+                        autoComplete="off"
+                        required
+                    />
                     <label>What is your <span className="italic">course code?</span><span className="text-red-500"> *</span></label>
                     <input
                         name="course_code"
