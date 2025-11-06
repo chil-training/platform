@@ -6,7 +6,7 @@ import { Link, redirect } from "react-router";
 
 const Navbar = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
 
     const handleLogOut = () => {
         auth.signOut().then(() => {
@@ -23,7 +23,10 @@ const Navbar = () => {
                     </Link>
                 </div>
                 {user ? (
-                    <button className="self-center" onClick={handleLogOut}>Logout</button>
+                    <div className="flex align-middle gap-8">
+                        {userMeta && <p className="self-center block">Hi, {userMeta.nickname}</p>}
+                        <button className="self-center" onClick={handleLogOut}>Logout</button>
+                    </div>
                 ) : (
                     <div className="flex align-middle gap-8">
                         <Link to="/auth/login" className="self-center">

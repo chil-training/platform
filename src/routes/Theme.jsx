@@ -72,8 +72,14 @@ const Theme = () => {
     } else {
         return (
             <div className="text-left py-32 container mx-auto">
-                <h1 className="text-6xl font-bold">{themeData.title ? themeData.title : null}</h1>
-                <p className="mt-4 text-md text-gray-600">{description}</p>
+                <div className="mb-12">
+                    <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-relaxed mb-4">
+                        {themeData.title}
+                    </h1>
+                    <p className="mt-4 text-lg text-gray-600 leading-relaxed whitespace-pre-line">
+                        {themeData.description}
+                    </p>
+                </div>
                 <h2 className="text-4xl font-bold my-8">Guides</h2>
                 {
                     guideData && guideData.length > 0 ? (

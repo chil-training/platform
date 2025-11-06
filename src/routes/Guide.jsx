@@ -36,7 +36,7 @@ const Guide = () => {
     return (
         <div>
             {user && guideData ?
-                <div className="mx-auto text-left prose py-32">
+                <div className="mx-auto container text-left prose py-32">
                     <Markdown>{guideData.markdown_content}</Markdown>
                 </div>
                 :
