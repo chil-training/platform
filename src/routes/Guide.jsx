@@ -4,6 +4,7 @@ import { AuthContext } from "../App";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebase_config";
 import { Link } from "react-router";
+import CPDTrainingCard from "../components/CPDTrainingCard";
 import Markdown from "react-markdown";
 
 const Guide = () => {
@@ -40,6 +41,7 @@ const Guide = () => {
                     <div className="mx-0 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
                         <Markdown>{guideData.markdown_content}</Markdown>
                     </div>
+                    <CPDTrainingCard />
                 </div>
                 :
                 <div className="py-32 container mx-auto px-4">
