@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import EventCard from "../components/EventCard";
+import CPDTrainingCard from "../components/CPDTrainingCard";
 import { Link } from "react-router";
 
 const DAALayout = ({ course, themes, events }) => {
@@ -97,6 +98,8 @@ const DAALayout = ({ course, themes, events }) => {
                     </div>
                 )}
             </div>
+            <CPDTrainingCard />
+
         </div>
     );
 }

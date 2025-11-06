@@ -5,6 +5,7 @@ import { db } from "../firebase_config";
 import { getDoc, getDocs, doc, collection } from "firebase/firestore";
 import { Link } from "react-router";
 import Card from "../components/Card";
+import CPDTrainingCard from "../components/CPDTrainingCard";
 
 
 const Theme = () => {
@@ -84,6 +85,7 @@ const Theme = () => {
                         </div>
                     ) : <p>Loading...</p>
                 }
+                <CPDTrainingCard />
             </div>
         );
     }
