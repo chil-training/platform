@@ -36,11 +36,13 @@ const Guide = () => {
     return (
         <div>
             {user && guideData ?
-                <div className="mx-auto container text-left prose py-32">
-                    <Markdown>{guideData.markdown_content}</Markdown>
+                <div className="container mx-auto py-32">
+                    <div className="mx-0 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
+                        <Markdown>{guideData.markdown_content}</Markdown>
+                    </div>
                 </div>
                 :
-                <div className="py-32 container mx-auto">
+                <div className="py-32 container mx-auto px-4">
                     <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
                 </div>
 
