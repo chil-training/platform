@@ -3,7 +3,7 @@ export default function Card({ item }) {
         <div className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 bg-gradient-to-br from-white to-gray-50 text-left h-full min-h-64 flex flex-col justify-between border border-gray-100">
             {/* Title and Description */}
             <div className="flex-1 mb-4">
-                <h3 className="text-2xl font-bold mb-2 text-gray-900 leading-tight uppercase">{item.title}</h3>
+                <h3 className="text-2xl font-bold mb-2 text-gray-900 leading-tight">{item.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
             </div>
 

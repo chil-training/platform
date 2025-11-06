@@ -11,7 +11,7 @@ const TrainingApp = () => {
     const [courseData, setCourseData] = useState(null);
     const [themeData, setThemeData] = useState(null);
     const [eventData, setEventData] = useState(null);
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
 
 
     const fetchCourseData = async (course_code) => {

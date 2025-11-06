@@ -6,7 +6,7 @@ import { Link, redirect } from "react-router";
 
 const Navbar = () => {
 
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
 
     const handleLogOut = () => {
         auth.signOut().then(() => {

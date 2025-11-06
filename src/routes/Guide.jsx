@@ -11,14 +11,14 @@ const Guide = () => {
     let params = useParams();
     let guideId = params.guideId;
 
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
     const [guideData, setGuideData] = useState(null);
 
     // Split slug into course_code, theme_id, and lesson_id
     const [course_code, theme_id, guide_id] = guideId.split("_");
 
     const fetchThemeData = async (course_code, theme_id, guide_id) => {
-        const docRef = await doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
+        const docRef = doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -30,7 +30,7 @@ const Guide = () => {
         if (userMeta && userMeta.course_code) {
             fetchThemeData(course_code, theme_id, guide_id);
         }
-    }, [userMeta]);
+    }, [userMeta, course_code, theme_id, guide_id]);
 
 
     return (

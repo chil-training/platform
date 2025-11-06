@@ -15,7 +15,7 @@ const Theme = () => {
     // Split slug into course_code, theme_id, and lesson_id 
     const [course_code, theme_id] = themeId.split("_");
 
-    const { user, setUser, userMeta, setUserMeta } = useContext(AuthContext);
+    const { user, userMeta } = useContext(AuthContext);
     const [guideData, setGuideData] = useState(null);
     const [themeData, setThemeData] = useState(null);
 
@@ -47,18 +47,8 @@ const Theme = () => {
         if (userMeta && userMeta.course_code) {
             fetchThemeData(course_code, theme_id);
         }
-    }, [userMeta]);
+    }, [userMeta, course_code, theme_id]);
 
-    var description
-
-    if (themeData && themeData.long_description) {
-        description = themeData.long_description;
-    }
-    else if (themeData && themeData.description) {
-        description = themeData.description;
-    } else {
-        description = null;
-    }
 
     if (!user) {
         return (
