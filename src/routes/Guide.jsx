@@ -38,6 +38,16 @@ const Guide = () => {
         <div>
             {user && guideData ?
                 <div className="container mx-auto py-32">
+                    <h1 className="text-6xl font-bold mb-8">{guideData.title}</h1>
+                    <iframe
+                        width="720"
+                        height="480"
+                        className="mb-8"
+                        src={guideData.video_url}
+                        title="YouTube video player"
+                        frameborder="0"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
                     <div className="mx-0 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
                         <Markdown>{guideData.markdown_content}</Markdown>
                     </div>
