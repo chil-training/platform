@@ -5,62 +5,55 @@ import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebase_config";
 import { Link } from "react-router";
 import CPDTrainingCard from "../components/CPDTrainingCard";
+import YouTube from "react-youtube";
 import Markdown from "react-markdown";
 
 const Guide = () => {
 
-    let params = useParams();
-    let guideId = params.guideId;
+  let params = useParams();
+  let guideId = params.guideId;
 
-    const { user, userMeta } = useContext(AuthContext);
-    const [guideData, setGuideData] = useState(null);
+  const { user, userMeta } = useContext(AuthContext);
+  const [guideData, setGuideData] = useState(null);
 
-    // Split slug into course_code, theme_id, and lesson_id
-    const [course_code, theme_id, guide_id] = guideId.split("_");
+  // Split slug into course_code, theme_id, and lesson_id
+  const [course_code, theme_id, guide_id] = guideId.split("_");
 
-    const fetchThemeData = async (course_code, theme_id, guide_id) => {
-        const docRef = doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
-        const docSnap = await getDoc(docRef);
+  const fetchThemeData = async (course_code, theme_id, guide_id) => {
+    const docRef = doc(db, "courses", course_code, "themes", theme_id, "guides", guide_id);
+    const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            setGuideData({ id: docSnap.id, ...docSnap.data() });
-        }
+    if (docSnap.exists()) {
+      setGuideData({ id: docSnap.id, ...docSnap.data() });
     }
+  }
 
-    useEffect(() => {
-        if (userMeta && userMeta.course_code) {
-            fetchThemeData(course_code, theme_id, guide_id);
-        }
-    }, [userMeta, course_code, theme_id, guide_id]);
+  useEffect(() => {
+    if (userMeta && userMeta.course_code) {
+      fetchThemeData(course_code, theme_id, guide_id);
+    }
+  }, [userMeta, course_code, theme_id, guide_id]);
 
 
-    return (
-        <div>
-            {user && guideData ?
-                <div className="container mx-auto py-32">
-                    <h1 className="text-6xl font-bold mb-8">{guideData.title}</h1>
-                    <iframe
-                        width="720"
-                        height="480"
-                        className="mb-8"
-                        src={guideData.video_url}
-                        title="YouTube video player"
-                        frameborder="0"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allowfullscreen></iframe>
-                    <div className="mx-0 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
-                        <Markdown>{guideData.markdown_content}</Markdown>
-                    </div>
-                    <CPDTrainingCard />
-                </div>
-                :
-                <div className="py-32 container mx-auto px-4">
-                    <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
-                </div>
-
-            }
+  return (
+    <div>
+      {user && guideData ?
+        <div className="container mx-auto py-32">
+          <h1 className="text-5xl font-bold mb-8">{guideData.title}</h1>
+          <YouTube videoId={guideData.videoId} />
+          <div className="mx-0 my-8 w-full max-w-full prose prose-lg prose-slate prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-lg">
+            <Markdown>{guideData.markdown_content}</Markdown>
+          </div>
+          <CPDTrainingCard />
         </div>
-    )
+        :
+        <div className="py-32 container mx-auto px-4">
+          <p>Please <Link to="/auth/login" className="underline text-blue-700">log in</Link> to view this content.</p>
+        </div>
+
+      }
+    </div>
+  )
 }
 
 
