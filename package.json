@@ -1,7 +1,6 @@
 {
-  "name": "hds-training-vite",
+  "name": "platform",
   "homepage": "https://chil-training.github.io/platform",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {

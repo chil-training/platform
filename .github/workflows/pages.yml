@@ -39,7 +39,7 @@ jobs:
         run: npm ci
       - name: Build
         env:
-          VITE_BASE_PATH: "/hds-training-vite/"
+          VITE_BASE_PATH: "/platform/"
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
