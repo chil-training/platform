@@ -11,6 +11,7 @@ import Guide from './routes/Guide';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import MainLayout from './layouts/MainLayout'
+import Admin from './routes/Admin'
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path='theme/:themeId' element={<Theme />} />
           <Route path='guide/:guideId' element={<Guide />} />
+          <Route path='admin' element={<Admin />} />
         </Route>
 
         {/* Auth routes */}

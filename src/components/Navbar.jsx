@@ -25,6 +25,11 @@ const Navbar = () => {
                 {user ? (
                     <div className="flex align-middle gap-8">
                         {userMeta && <p className="self-center block">Hi, {userMeta.nickname}</p>}
+                        {userMeta && userMeta.admin && (
+                            <Link to="/admin" className="self-center text-yellow-400 font-semibold hover:text-yellow-300">
+                                Admin
+                            </Link>
+                        )}
                         <button className="self-center" onClick={handleLogOut}>Logout</button>
                     </div>
                 ) : (
